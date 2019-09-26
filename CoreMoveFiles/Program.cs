@@ -18,8 +18,8 @@ namespace CoreMoveFiles
             }
             else
             {
-                moveLocations.Add(new MoveLocation() { SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Freddy", DesctionLocation = "" });
-                moveLocations.Add(new MoveLocation() { SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Elliott", DesctionLocation = "" });
+                moveLocations.Add(new MoveLocation() { SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Freddy", DesctionLocation = @"E:\Personal\Images\Clean\People\Freddy Lee" });
+                moveLocations.Add(new MoveLocation() { SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Elliott", DesctionLocation = @"E:\Personal\Images\Clean\People\Elliot Ryker Wolke Newsom" });
 
                 XmlSerializer xs = new XmlSerializer(moveLocations.GetType());
                 TextWriter tw = new StreamWriter(xmldataloction);
