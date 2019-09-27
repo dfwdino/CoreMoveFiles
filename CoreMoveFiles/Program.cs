@@ -61,6 +61,7 @@ namespace CoreMoveFiles
                         {
                             Console.WriteLine($"Found File {fullnamedesc}. Deleting file.");
                             FileSystem.DeleteFile(fullnamedesc,UIOption.OnlyErrorDialogs,RecycleOption.SendToRecycleBin);
+                            continue;
                         }
                         else
                         {
@@ -70,6 +71,7 @@ namespace CoreMoveFiles
                     }
 
                     File.Move(filetomove, fullnamedesc);
+                    Console.WriteLine($"Moving file {fullnamedesc}");
 
                 }
 
