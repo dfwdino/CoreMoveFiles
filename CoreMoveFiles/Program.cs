@@ -8,10 +8,11 @@ namespace CoreMoveFiles
 {
     class Program
     {
+        static string xmldataloction = Directory.GetCurrentDirectory() + "FilesToMove.xml";
+        static List<MoveLocation> moveLocations = new List<MoveLocation>();
+
         static void Main(string[] args)
-        {
-            string xmldataloction = Directory.GetCurrentDirectory() + "FilesToMove.xml";
-            List<MoveLocation> moveLocations = new List<MoveLocation>();
+        {           
 
             if (File.Exists(xmldataloction))
             {
@@ -20,15 +21,18 @@ namespace CoreMoveFiles
             }
             else
             {
-                moveLocations.Add(new MoveLocation() { SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Freddy", 
-                                                        DesctionLocation = @"E:\Personal\Images\Clean\People\Freddy Lee" });
 
-                moveLocations.Add(new MoveLocation() { SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Elliott", 
-                                                        DesctionLocation = @"E:\Personal\Images\Clean\People\Elliot Ryker Wolke Newsom" });
+                bool IsWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
 
-                XmlSerializer xs = new XmlSerializer(moveLocations.GetType());
-                TextWriter tw = new StreamWriter(xmldataloction);
-                xs.Serialize(tw, moveLocations);
+                if (IsWindows)
+                {
+                    CreatWindowsDefaultsValues();
+                }
+                else
+                {
+                    Console.WriteLine("Can't find OS!!!");
+                }
+                               
 
             }
 
@@ -94,6 +98,25 @@ namespace CoreMoveFiles
                 Console.WriteLine(ex.Message);
             }
             return returnObject;
+        }
+
+        public static void CreatWindowsDefaultsValues()
+        {
+            moveLocations.Add(new MoveLocation()
+            {
+                SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Freddy",
+                DesctionLocation = @"E:\Personal\Images\Clean\People\Freddy Lee"
+            });
+
+            moveLocations.Add(new MoveLocation()
+            {
+                SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Elliott",
+                DesctionLocation = @"E:\Personal\Images\Clean\People\Elliot Ryker Wolke Newsom"
+            });
+
+            XmlSerializer xs = new XmlSerializer(moveLocations.GetType());
+            TextWriter tw = new StreamWriter(xmldataloction);
+            xs.Serialize(tw, moveLocations);
         }
     }
 }
