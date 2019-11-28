@@ -6,8 +6,8 @@ namespace CoreMoveFiles
 {
     public class MoveLocation : IMoveLocation
     {
-        public string SouceLocation { get; set; }
-        public string DesctionLocation { get; set; }
+        public string SourceLocation { get; set; }
+        public string DestinationLocation { get; set; }
 
 
          public MoveLocation()

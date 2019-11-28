@@ -8,7 +8,7 @@ namespace CoreMoveFiles
 {
     class Program
     {
-        static string xmldataloction = Directory.GetCurrentDirectory() + "FilesToMove.xml";
+        static string xmldataloction = Directory.GetCurrentDirectory() + "\\FilesToMove.xml";
         static List<MoveLocation> moveLocations = new List<MoveLocation>();
 
         static void Main(string[] args)
@@ -39,23 +39,26 @@ namespace CoreMoveFiles
 
             foreach (MoveLocation imagemove in moveLocations)
             {
-                if (File.Exists(imagemove.SouceLocation))
+                if (!Directory.Exists(imagemove.SourceLocation))
                 {
-                    Console.WriteLine($"Can't find file {imagemove.SouceLocation}. Skipping folder.");
+                    Console.WriteLine($"Can't find source folder {imagemove.SourceLocation}. Skipping folder.");
                     continue;
                 }
-                else if(File.Exists(imagemove.DesctionLocation))
+                else if(!Directory.Exists(imagemove.DestinationLocation))
                 {
-                    Console.WriteLine($"Can't find file {imagemove.DesctionLocation}. Skipping folder.");
-                    File.Create(imagemove.DesctionLocation);
+                    Console.WriteLine($"Can't destination folder file {imagemove.DestinationLocation}. Skipping folder.");
+                    continue;
+                    //File.Create(imagemove.DestinationLocation);
                 }
 
-                var AllFiles = Directory.GetFiles(imagemove.SouceLocation);
+                
+
+                var AllFiles = Directory.GetFiles(imagemove.SourceLocation);
 
                 foreach (string filetomove in AllFiles)
                 {
                     FileInfo fi = new FileInfo(filetomove);
-                    string fullnamedesc = imagemove.DesctionLocation + "\\" + fi.Name;
+                    string fullnamedesc = imagemove.DestinationLocation + "\\" + fi.Name;
 
                     if (File.Exists(fullnamedesc))
                     {
@@ -106,14 +109,14 @@ namespace CoreMoveFiles
         {
             moveLocations.Add(new MoveLocation()
             {
-                SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Freddy",
-                DesctionLocation = @"E:\Personal\Images\Clean\People\Freddy Lee"
+                SourceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Freddy",
+                DestinationLocation = @"E:\Personal\Images\Clean\People\Freddy Lee"
             });
 
             moveLocations.Add(new MoveLocation()
             {
-                SouceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Elliott",
-                DesctionLocation = @"E:\Personal\Images\Clean\People\Elliot Ryker Wolke Newsom"
+                SourceLocation = @"C:\Users\Shane\Desktop\tempphtos\temp phone\Elliott",
+                DestinationLocation = @"E:\Personal\Images\Clean\People\Elliot Ryker Wolke Newsom"
             });
 
             XmlSerializer xs = new XmlSerializer(moveLocations.GetType());
